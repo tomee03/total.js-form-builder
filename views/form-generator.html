@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+	<script   src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+	<style>
+		body { background: #F9F9F9; }
+		header { height: 100px; background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%); line-height: 100px; }
+		header h1 { color: #ffffff; font-size: 25px; display: inline-block; margin: 0; padding: 0; }
+		header nav > a { color: #ffffff; display: inline-block; padding-left: 30px; }
+		header nav > span { color: #eeeeee; display: inline-block; }
+		header nav > a:hover { color: #eeeeee; text-decoration: none; }
+		footer { position: fixed; bottom: 0; left: 0; width: 100%; height: 50px; line-height: 50px; background: #ffffff; border-top: 1px solid #e9e9e9; font-size: 13px;}
+		footer .margin-l { margin-left: 7%; }
+		footer .margin-r { margin-right: 7%; }
+		footer .margin-r-s { margin-right: 10px; }
+		.btn-total { background: #7DC13C; color: #ffffff; }
+		.btn-total:hover { background: #99D958; color: #ffffff; }
+		.content { padding: 30px 15px 150px 15px; background: #ffffff; }
+		.content .form-group { padding-top: 15px; }
+		textarea#result { width: 100%; height: 350px; margin-top: 50px; }
+		.margin-t { margin-top: 20px; }
+		.error { font-weight: bold; color: red; font-size: 16px; }
+	</style>
+</head>
+<body>
+	<header>
+		<div class="row">
+			<div class="col-md-5 col-md-offset-1">
+				<h1>Form generator for total.js</h1>
+			</div>
+			<div class="col-md-5">
+				<nav class="pull-right">
+					<span>Follow me for updates:</span>
+					<a href="https://github.com/tomee03" target="_blank">Github</a>
+					<a href="https://twitter.com/tomee03" target="_blank">Twitter</a>
+				</nav>
+			</div>
+		</div>
+	</header>
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-sm-offset-3 content">
+			<form id="f">
+			  <div class="form-group">
+			    <label for="schema_name">Schema name:</label>
+			    <input type="text" class="form-control" id="schema_name" name="schemaName">
+			  </div>
+			  <div class="form-group">
+			    <label for="schema_flag">Schema flag:</label>
+			    <input type="text" class="form-control" id="schema_flag" placeholder="E.g. 'read'" value="*" name="schemaFlag">
+			  </div>
+			  <div class="form-group">
+			    <label for="custom_attr">Custom attributes:</label>
+			    <input type="text" class="form-control" id="custom_attr" placeholder="E.g. 'data-id'" name="customAttr">
+			  </div>
+
+			  <div class="form-group">
+				  <label for="placeholder">Generate placeholder?</label>
+				  <select class="form-control" id="placeholder" name="placeholder">
+				    <option value="true" selected>Yes</option>
+				    <option value="false">No</option>
+				  </select>
+			  </div>
+
+			  <div class="form-group">
+				  <label for="translate_label">Add translate to label?</label>
+				  <select class="form-control" id="translate_label" name="translateLabel">
+				    <option value="true" selected>Yes</option>
+				    <option value="false">No</option>
+				  </select>
+			  </div>
+
+			  <div class="form-group">
+			    <label for="translate_prefix">Translate prefix:</label>
+			    <input type="text" class="form-control" id="translate_prefix" placeholder="E.g. 'form-'" name="translatePrefix">
+			  </div>
+
+			  <div class="form-group">
+				  <label for="include_validation">Include validation:</label>
+				  <select class="form-control" id="include_validation" name="includeValidation">
+				    <option value="true" selected>Yes</option>
+				    <option value="false">No</option>
+				  </select>
+			  </div>
+
+			  <div class="form-group margin-t">
+				  <label for="is_jcomponent">Render for jComponents:</label>
+				  <select class="form-control" id="is_jcomponent" name="isJcomponent">
+				    <option value="true" selected>Yes</option>
+				    <option value="false">No</option>
+				  </select>
+			  </div>
+
+			  <h3>Next inputs fill only if you using jComponent</h3>
+			  <div class="form-group">
+			    <label for="jcomponent_path">jComponent path:</label>
+			    <input type="text" class="form-control" id="jcomponent_path" placeholder="E.g. 'form'" name="jcomponentPath">
+			  </div>
+			  <div class="form-group">
+			    <label for="jcomponent_icon">jComponent icon:</label>
+			    <input type="text" class="form-control" id="jcomponent_icon" placeholder="E.g. 'fa-pencil'" value="fa-pencil" name="jcomponentIcon">
+			  </div>
+		  	  <p class="error"></p>
+			  <button type="submit" class="btn btn-total">Submit</button>
+			</form>
+			<textarea id="result" onclick="this.focus();this.select()" readonly="readonly"></textarea>
+		</div>
+	</div>
+
+	<footer>
+		<div class="pull-left margin-l">
+			2016 © by <a href="https://twitter.com/tomee03">Tomáš Novák</a>
+		</div>
+		<div class="pull-right margin-r">
+			<a class="hidden-xs margin-r-s" href="https://github.com/petersirka/node-sqlagent" target="_blank">SQL Agent for total.js</a>
+			<span class="hidden-xs margin-r-s">|</span>
+			<a class="hidden-xs margin-r-s" href="https://componentator.com/" target="_blank">Componentator - components for total.js</a>
+			<span class="hidden-xs margin-r-s">|</span>
+			<a href="https://www.totaljs.com/" target="_blank">Powered by total.js</a>
+		</div>
+	</footer>
+
+<script>
+$(document).ready(function() {
+    $('form#f').submit(function(e) {
+        e.preventDefault();
+
+        var self = $(this);
+        
+        var post = $.post('/form-generator/', self.serialize(), function(data) {
+    		if(!data.success) {
+    			$('.error').html(data.error);
+    			return;
+    		}
+			var append = '';
+    		$('textarea#result').empty();
+
+    		if (data.value instanceof Array) {
+
+    			data.value.forEach(function(o) {
+    				append += o + '\n\n';
+    			});
+				$('textarea#result').html(append);
+    		}
+		});
+
+		post.fail(function() {
+			$('.error').html('Schema not exist');
+  		});
+
+        return;
+    });
+});
+
+</script>
+</body>
+</html>
